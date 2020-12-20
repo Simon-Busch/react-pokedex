@@ -1,15 +1,15 @@
 import React, {Fragment} from "react";
 import { connect } from 'react-redux'
 
-const Screen = ({onScreen}) => {
+const Screen = ({ onScreen }) => {
   if (onScreen.id) {
     return (
-      <Fragment>
+      <>
         <h3 className="screen-name">
           {onScreen.name}
         </h3>
         <img src={onScreen.img} alt={onScreen.name} />
-      </Fragment>
+      </>
       )
   } else {
 
@@ -26,7 +26,7 @@ const Screen = ({onScreen}) => {
 const mapStateToProps = ({ onScreen }) => {
   return {
     onScreen
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps)(Screen);

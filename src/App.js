@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 //useEffect is a hook that allows us to make an action on loading of the app
 import "./styles.css";
 import { connect } from 'react-redux';
-import { CLICK, showPokemonAction } from './store/action';
+import { CLICK, showPokemonAction, catchPokemonAction } from './store/action';
 
 import fetchPokemons from './store/fetchPokemons'
 
@@ -11,13 +11,17 @@ import PokeList from "./components/PokeList";
 import Loader from './components/Loader'
 
 // passed from "mapStateToProps"
-const App = ({ click, fetchPokemons, pending, showPokemon, pokemons }) => {
+const App = ({ click, fetchPokemons, pending, showPokemon, pokemons, catchPokemon }) => {
 
   //useEffect take a function as parameter
   useEffect(() => {
     fetchPokemons()
   }, [fetchPokemons])
   //array means, if fetchPokemons is modified, relaunch fetchPokemons
+
+  useEffect((() => {
+    console.log(pokemons)
+  }))
 
   if (pending) {
     return <Loader />
@@ -30,6 +34,7 @@ const App = ({ click, fetchPokemons, pending, showPokemon, pokemons }) => {
       </button>
       <GameBoy 
         showPokemon={() => showPokemon(pokemons)}
+        catchPokemon={catchPokemon}
       />
       <PokeList />
     </div>
@@ -51,7 +56,8 @@ const mapDispatchToProps = dispatch => {
     fetchPokemons: () => fetchPokemons(dispatch),
     click: () => dispatch({type: CLICK}),
     //pass the props to the action
-    showPokemon: pokemons => dispatch(showPokemonAction(pokemons))
+    showPokemon: pokemons => dispatch(showPokemonAction(pokemons)),
+    catchPokemon: () => dispatch(catchPokemonAction())
   }
 }
 
