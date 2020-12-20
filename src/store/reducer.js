@@ -1,5 +1,5 @@
 import initialState from './initialState'
-import { CLICK, FETCH_POKEMON_SUCCESS, FETCH_POKEMON_PENDING } from './action'
+import { CLICK, FETCH_POKEMON_SUCCESS, FETCH_POKEMON_PENDING, SHOW_POKEMON} from './action'
 
 //set up by default the state
 const reducer = (state = initialState, action) => {
@@ -21,6 +21,13 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: true
+      }
+    case SHOW_POKEMON:
+      return {
+        ...state,
+        onScreen: action.onScreen
+        // refers to showPokemonAction //action.js
+        //const onScreen = pokemons[random]
       }
     default:
       return state;

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 //useEffect is a hook that allows us to make an action on loading of the app
 import "./styles.css";
 import { connect } from 'react-redux';
-import { CLICK } from './store/action';
+import { CLICK, showPokemonAction } from './store/action';
 
 import fetchPokemons from './store/fetchPokemons'
 
@@ -10,7 +10,8 @@ import GameBoy from "./components/GameBoy";
 import PokeList from "./components/PokeList";
 import Loader from './components/Loader'
 
-const App = ({ click, fetchPokemons, pending }) => {
+// passed from "mapStateToProps"
+const App = ({ click, fetchPokemons, pending, showPokemon, pokemons }) => {
 
   //useEffect take a function as parameter
   useEffect(() => {
@@ -27,12 +28,15 @@ const App = ({ click, fetchPokemons, pending }) => {
       <button onClick={() => click()}> 
       click
       </button>
-      <GameBoy />
+      <GameBoy 
+        showPokemon={() => showPokemon(pokemons)}
+      />
       <PokeList />
     </div>
   );
 };
 
+// what we want to grap from the state
 const mapStateToProps = ({ click, pokemons, pending }) => {
   return {
     click,
@@ -45,7 +49,9 @@ const mapDispatchToProps = dispatch => {
   return {
     //in this case, this is the function fetchPokemons that will dispaly the data.
     fetchPokemons: () => fetchPokemons(dispatch),
-    click: () => dispatch({type: CLICK})
+    click: () => dispatch({type: CLICK}),
+    //pass the props to the action
+    showPokemon: pokemons => dispatch(showPokemonAction(pokemons))
   }
 }
 

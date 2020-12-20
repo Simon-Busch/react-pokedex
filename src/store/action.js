@@ -3,6 +3,8 @@ export const CLICK = 'CLICK'
 export const FETCH_POKEMON_SUCCESS = 'FETCH_POKEMON_SUCCESS'
 //loading 
 export const FETCH_POKEMON_PENDING = 'FETCH_POKEMON_PENDING'
+//Show pokemon 
+export const SHOW_POKEMON = 'SHOW_POKEMON'
 
 //pokemons = list from the API
 export const fetchPokemonSuccess = (pokemons) => ({
@@ -13,3 +15,14 @@ export const fetchPokemonSuccess = (pokemons) => ({
 export const fetchPokemonPending = () => ({
   type: FETCH_POKEMON_PENDING
 })
+
+export const showPokemonAction = (pokemons) => {
+  const random = Math.floor(Math.random() * pokemons.length + 1 )
+  const onScreen = pokemons[random]
+  return dispatch => {
+    dispatch({ 
+      type: SHOW_POKEMON,
+      onScreen
+    })
+  }
+}
