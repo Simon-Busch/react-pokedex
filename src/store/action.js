@@ -17,8 +17,12 @@ export const fetchPokemonPending = () => ({
 })
 
 export const showPokemonAction = (pokemons) => {
-  const random = Math.floor(Math.random() * pokemons.length + 1 )
-  const onScreen = pokemons[random]
+  const filteredPokemons = pokemons.filter(pokemon => !pokemon.isCatch)
+  const max = filteredPokemons.length
+  const random = Math.floor(Math.random() * max.length + 1 )
+
+  const onScreen = filteredPokemons[random]
+  
   return dispatch => {
     dispatch({ 
       type: SHOW_POKEMON,

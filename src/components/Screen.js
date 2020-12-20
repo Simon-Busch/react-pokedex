@@ -1,9 +1,16 @@
-import React from "react";
+import React, {Fragment} from "react";
 import { connect } from 'react-redux'
 
 const Screen = ({onScreen}) => {
   if (onScreen.id) {
-    return <h1>{onScreen.name}</h1>
+    return (
+      <Fragment>
+        <h3 className="screen-name">
+          {onScreen.name}
+        </h3>
+        <img src={onScreen.img} alt={onScreen.name} />
+      </Fragment>
+      )
   } else {
 
   }
