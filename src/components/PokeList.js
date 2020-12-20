@@ -4,7 +4,7 @@ import PokemonItem from "./PokemonItem";
 
 const PokeList = ({click, pokemons, pending}) => {
   // console.log(pokemons)
-  console.log(pending)
+  // console.log(pending)
   return (
     <div className="list-container">
       <h2>Try : {click}</h2>

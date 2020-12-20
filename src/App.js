@@ -8,6 +8,7 @@ import fetchPokemons from './store/fetchPokemons'
 
 import GameBoy from "./components/GameBoy";
 import PokeList from "./components/PokeList";
+import Loader from './components/Loader'
 
 const App = ({ click, fetchPokemons, pending }) => {
 
@@ -18,8 +19,9 @@ const App = ({ click, fetchPokemons, pending }) => {
   //array means, if fetchPokemons is modified, relaunch fetchPokemons
 
   if (pending) {
-    return <h1>Loading your pokédex 🤡 </h1>
+    return <Loader />
   }
+
   return (
     <div className="App">
       <button onClick={() => click()}> 
