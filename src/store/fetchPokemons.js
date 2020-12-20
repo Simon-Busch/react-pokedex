@@ -1,5 +1,5 @@
 import { fetchPokemonSuccess } from './action'
-
+import { fetchPokemonPending } from './action'
 //number of pokemons we want
 const numberOfPokemons = 151
 
@@ -13,6 +13,8 @@ for (let i = 1; i<= numberOfPokemons; i++) {
 const requests = urls.map(url => fetch(url))
 
 export default async (dispatch) => {
+  dispatch(fetchPokemonPending())
+
   await Promise.all(requests.map(item => item.then(data => (data.json()))))
     .then(results => {
       return results.map(pokemon => ({

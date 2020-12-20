@@ -1,5 +1,5 @@
 import initialState from './initialState'
-import { CLICK, FETCH_POKEMON_SUCCESS } from './action'
+import { CLICK, FETCH_POKEMON_SUCCESS, FETCH_POKEMON_PENDING } from './action'
 
 //set up by default the state
 const reducer = (state = initialState, action) => {
@@ -14,7 +14,13 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         // update pokemons [] in the inital states
-        pokemons: action.pokemons
+        pokemons: action.pokemons,
+        pending: false
+      }
+    case FETCH_POKEMON_PENDING:
+      return {
+        ...state,
+        pending: true
       }
     default:
       return state;

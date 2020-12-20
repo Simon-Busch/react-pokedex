@@ -9,7 +9,7 @@ import fetchPokemons from './store/fetchPokemons'
 import GameBoy from "./components/GameBoy";
 import PokeList from "./components/PokeList";
 
-const App = ({ click, fetchPokemons }) => {
+const App = ({ click, fetchPokemons, pending }) => {
 
   //useEffect take a function as parameter
   useEffect(() => {
@@ -17,6 +17,9 @@ const App = ({ click, fetchPokemons }) => {
   }, [fetchPokemons])
   //array means, if fetchPokemons is modified, relaunch fetchPokemons
 
+  if (pending) {
+    return <h1>Loading your pokédex 🤡 </h1>
+  }
   return (
     <div className="App">
       <button onClick={() => click()}> 
@@ -28,6 +31,13 @@ const App = ({ click, fetchPokemons }) => {
   );
 };
 
+const mapStateToProps = ({ click, pokemons, pending }) => {
+  return {
+    click,
+    pokemons,
+    pending
+  }
+}
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -38,4 +48,4 @@ const mapDispatchToProps = dispatch => {
 }
 
 // we get our state object, mapStateToProps that we will connect to App
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
