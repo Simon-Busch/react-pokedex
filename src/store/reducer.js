@@ -13,6 +13,7 @@ const reducer = (state = initialState, action) => {
     case FETCH_POKEMON_SUCCESS: 
       return {
         ...state,
+        // update pokemons [] in the inital states
         pokemons: action.pokemons
       }
     default:

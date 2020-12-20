@@ -7,11 +7,16 @@ const PokeList = ({click, pokemons}) => {
   return (
     <div className="list-container">
       <h2>Try : {click}</h2>
-      <h2>Pokedex</h2>
+      <h2>{pokemons.filter(pokemon => pokemon.isCatch).length} / {pokemons.length}</h2>
       <ul>
-        <PokemonItem />
-        <PokemonItem />
-        <PokemonItem />
+        {
+          pokemons.map(pokemon => (
+            <PokemonItem 
+              key={pokemon.id}
+              pokemon={pokemon}
+            />
+          ))
+        }
       </ul>
     </div>
   );

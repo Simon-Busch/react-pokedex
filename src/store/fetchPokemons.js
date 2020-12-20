@@ -1,7 +1,7 @@
 import { fetchPokemonSuccess } from './action'
 
 //number of pokemons we want
-const numberOfPokemons = 10
+const numberOfPokemons = 151
 
 //store all the addresses
 const urls = []
@@ -12,25 +12,17 @@ for (let i = 1; i<= numberOfPokemons; i++) {
 
 const requests = urls.map(url => fetch(url))
 
-export default () => {
-  return dispatch => {
-
-    // will check if ALL promises are consumed in the requests []
-    Promise.all(requests)
-      //once all consumed, return an array of responses
-      //check again if all consumed
-      //and get back a JSON
-      .then(responses => Promise.all(responses.map(res => res.json())))
-      .then(pokemons => pokemons.map(pokemon => ({
-        // from the api
+export default async (dispatch) => {
+  await Promise.all(requests.map(item => item.then(data => (data.json()))))
+    .then(results => {
+      return results.map(pokemon => ({
         id: pokemon.id,
         name: pokemon.name,
-        capureRate: pokemon.capture_rate,
-        //not from the api
+        captureRate: pokemon.capture_rate,
         isCatch: false,
         img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`
-      })))
-      .then(pokemons => dispatch(fetchPokemonSuccess(pokemons)))
-      
-  }
-}
+      }))
+    }).then(pokemons => {
+      return dispatch(fetchPokemonSuccess(pokemons))
+    });
+};
