@@ -1,8 +1,11 @@
 import React, {Fragment} from "react";
 import { connect } from 'react-redux'
 
-const Screen = ({ onScreen }) => {
+const Screen = ({ onScreen, pokemons }) => {
   if (onScreen.id) {
+    if (pokemons[onScreen.id - 1].isCatch) {
+      return <img src='http://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png' alt={onScreen.name} />
+    }
     return (
       <>
         <h3 className="screen-name">
@@ -23,9 +26,9 @@ const Screen = ({ onScreen }) => {
   );
 };
 
-const mapStateToProps = ({ onScreen }) => {
+const mapStateToProps = ({ onScreen, pokemons}) => {
   return {
-    onScreen
+    onScreen, pokemons
   };
 };
 
